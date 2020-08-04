@@ -5,3 +5,4 @@ cp -r ../coding_template ~/bin
 echo "Creating user alias"
 echo 'alias template="~/bin/cp_template/template"' >> ~/.bashrc
 bash
+echo "USE template -h to get usage"
