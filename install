@@ -1,0 +1,7 @@
+#! /usr/bin/bash
+echo "Installing the command line utility....."
+echo "Copying files to user bin....."
+cp -r ../coding_template ~/bin
+echo "Creating user alias"
+echo 'alias template="~/bin/cp_template/template"' >> ~/.bashrc
+bash
