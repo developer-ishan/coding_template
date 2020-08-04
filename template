@@ -2,7 +2,7 @@
 import getopt, sys, os
 
 homedir = homedir = os.environ['HOME']
-ROOT = os.path.join(homedir,'bin/cp_template')
+ROOT = os.path.join(homedir,'bin/coding_template')
 languages_file = open(os.path.join(ROOT,'languages'),'r+')
 LANGUAGES = languages_file.read().split('\n')
 
