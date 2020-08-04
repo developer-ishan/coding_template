@@ -1,0 +1,69 @@
+#! /usr/bin/python3
+import getopt, sys, os
+
+homedir = homedir = os.environ['HOME']
+ROOT = os.path.join(homedir,'bin/cp_template')
+languages_file = open(os.path.join(ROOT,'languages'),'r+')
+LANGUAGES = languages_file.read().split('\n')
+
+# Remove 1st argument from the 
+# list of command line arguments 
+argumentList = sys.argv[1:] 
+
+# Options 
+options = "hi:e:av"
+
+# Long options 
+long_options = ["help", "init", "edit","add","version"]
+
+try:
+    # Parsing argument
+    arguments, values = getopt.getopt(argumentList,options,long_options)
+
+    #checking each argument
+    for currentArgument, currentValue in arguments:
+
+        if currentArgument in ("-v","--version"):
+            print("1.0.0")
+        elif currentArgument in ("-h","--help"):
+            print("Displaying Help")
+            help = open(os.path.join(ROOT,'help.txt'),'r')
+            print(help.read())
+
+        elif currentArgument in ("-i","--init"):
+            print("using default template")
+            file_name, file_extension = os.path.splitext(currentValue)
+            
+            if(file_extension in LANGUAGES):
+                print(f"creating new {file_extension} file")
+                new_file = os.path.join(os.getcwd(),currentValue)
+
+                template = open(os.path.join(ROOT,file_extension),"r")
+                template_code = template.read()
+                new_file_obj = open(new_file,'w')
+                new_file_obj.write(template_code)
+                os.system("code "+new_file)
+            else :
+                print("No template exist for this language yet")
+        elif currentArgument in ("-e","--edit"):
+            template = os.path.join(ROOT,currentValue)
+            if os.path.exists(template):
+                os.system("code "+template)
+            else:
+                print("Error:- template for this janguage not found use -a to create one")
+        elif currentArgument in ("-a","--add"):
+            print("Enter the file extension of the language.")
+            new_template = input()
+            while(new_template[0]!='.'):
+                print("use this format .[file extension]")
+                new_template = input()
+            languages_file.write('\n')
+            languages_file.write(new_template)
+
+            template = os.path.join(ROOT,new_template)
+            if not os.path.exists(template):
+                os.system("code "+template)
+            else:
+                print("Error:- template for this janguage already exists")
+except getopt.error as err:
+    print (str(err)) 
