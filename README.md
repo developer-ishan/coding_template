@@ -1,4 +1,5 @@
 # coding_template
+(!only for linux users!)
 This is a command line utility to set a default template for competitive programming.
 
 ##INSTALLATION AND CONFIGURATION
