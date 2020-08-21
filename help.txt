@@ -6,4 +6,4 @@ Options:-
 -c, --create : for adding new template
 -a, --all :see list of already added templates
 
-CREATED BY ISHAN GUPTA IN COLLABORATION WITH LOVEDEEP(https://dev-lovedeep.github.io/portfolio/)
+CREATED BY ISHAN GUPTA
