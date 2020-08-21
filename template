@@ -11,10 +11,91 @@ LANGUAGES = languages_file.read().split('\n')
 argumentList = sys.argv[1:] 
 
 # Options 
-options = "hi:e:av"
+options = "hi:e:c:va"
 
 # Long options 
-long_options = ["help", "init", "edit","add","version"]
+long_options = ["help", "init", "edit","create","version","all"]
+
+def show_help_options():
+    print("Displaying Help")
+    help = open(os.path.join(ROOT,'help.txt'),'r')
+    print(help.read())
+
+def edit_template(ext):
+    if not '.' in ext:
+        ext = '.'+ext
+    template = os.path.join(ROOT,ext)
+    if os.path.exists(template):
+        os.system("code "+template)
+    else:
+        print(f"No template exist for {ext} files\nwould you like to create one (y/n):")
+        option = input()
+        if(option=='y' or option =='Y'):
+            create_new_template(ext)
+
+def create_new_template(ext=""):
+    extension=""
+    if ext=="":
+        print("Enter the file extension of the language.")
+        ext = input()
+    # with the help of this function user can give names in following ways:
+    # filename.extension
+    # .extension
+    # extension
+    extension=ext
+    if not '.' in ext:
+        print("no . in ext")
+        extension = '.'+ext
+    languages_file.write('\n')
+    languages_file.write(extension)
+
+    template = os.path.join(ROOT,extension)
+    if not os.path.exists(template):
+        os.system("code "+template)
+    else:
+        print(f"template for {extension} file already exist.\nwould you like to make changes in it (y/n): ")
+        option = input()
+        if(option=='y' or option =='Y'):
+            edit_template(extension)
+
+def generate_file(file_name,file_extension):
+    if(file_extension in LANGUAGES):
+        new_file = os.path.join(os.getcwd(),f"{file_name}{file_extension}")
+        template_path = os.path.join(ROOT,file_extension)
+        if os.path.exists(template_path):
+            print(f"generating {file_name}{file_extension} file")
+            template = open(template_path,"r")
+            template_code = template.read()
+            new_file_obj = open(new_file,'w')
+            new_file_obj.write(template_code)
+            os.system("code "+new_file)
+        else:
+            print(f"template file not saved\ngenerating template for {file_extension} file")
+            
+            # since the file was not saved
+            # deleting its name from languages file
+
+            with open(os.path.join(ROOT,'languages'), "r") as f:
+                lines = f.readlines()
+            os.remove(os.path.join(ROOT,'languages'))
+            with open(os.path.join(ROOT,'languages'), "w") as f:
+                for line in lines:
+                        f.write(line)
+
+            create_new_template(file_extension)
+        
+    else :
+        print(f"No template exist for {file_extension} files\nwould you like to create one (y/n):")
+        option = input()
+        if(option=='y' or option =='Y'):
+            create_new_template(file_extension)
+            
+
+
+
+
+
+
 
 try:
     # Parsing argument
@@ -23,47 +104,38 @@ try:
     #checking each argument
     for currentArgument, currentValue in arguments:
 
+
         if currentArgument in ("-v","--version"):
             print("1.0.0")
         elif currentArgument in ("-h","--help"):
-            print("Displaying Help")
-            help = open(os.path.join(ROOT,'help.txt'),'r')
-            print(help.read())
+            show_help_options()
 
         elif currentArgument in ("-i","--init"):
-            print("using default template")
+            if currentValue.startswith("."):
+                print("please enter file name also")
+                exit()
             file_name, file_extension = os.path.splitext(currentValue)
+            if file_extension=='':
+                print("please write file extension at the end.")
+                exit()
+            generate_file(file_name,file_extension)
             
-            if(file_extension in LANGUAGES):
-                print(f"creating new {file_extension} file")
-                new_file = os.path.join(os.getcwd(),currentValue)
-
-                template = open(os.path.join(ROOT,file_extension),"r")
-                template_code = template.read()
-                new_file_obj = open(new_file,'w')
-                new_file_obj.write(template_code)
-                os.system("code "+new_file)
-            else :
-                print("No template exist for this language yet")
         elif currentArgument in ("-e","--edit"):
-            template = os.path.join(ROOT,currentValue)
-            if os.path.exists(template):
-                os.system("code "+template)
-            else:
-                print("Error:- template for this janguage not found use -a to create one")
-        elif currentArgument in ("-a","--add"):
-            print("Enter the file extension of the language.")
-            new_template = input()
-            while(new_template[0]!='.'):
-                print("use this format .[file extension]")
-                new_template = input()
-            languages_file.write('\n')
-            languages_file.write(new_template)
+            file_extension=currentValue
+            if not currentValue.startswith("."):
+                file_extension = os.path.splitext(currentValue)[1]
+            edit_template(file_extension)
 
-            template = os.path.join(ROOT,new_template)
-            if not os.path.exists(template):
-                os.system("code "+template)
-            else:
-                print("Error:- template for this janguage already exists")
+        elif currentArgument in ("-c","--create"):
+            file_extension=currentValue
+            if not currentValue.startswith("."):
+                file_extension = os.path.splitext(currentValue)[1]
+            create_new_template(file_extension)
+        elif currentArgument in ("-a","--all"):
+            f = open(os.path.join(ROOT,'languages'), "r")
+            for x in f:
+                print(x.rstrip())
+            f.close()
+               
 except getopt.error as err:
     print (str(err)) 
