@@ -1,8 +1,9 @@
 Options:-
--v, --version : 1.0 (only for cpp files)
+-v, --version : 2.0
 -h, --help : for detailed help
 -i [FILENAME] --init [FILENAME] : for creating code template 
 -e, --edit : for editing template
--a, --add : for adding new template
+-c, --create : for adding new template
+-a, --all :see list of already added templates
 
 CREATED BY ISHAN GUPTA
