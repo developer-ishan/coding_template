@@ -8,3 +8,5 @@ Options:-
 
 CREATED BY ISHAN GUPTA
 https://github.com/developer-ishan
+Debugging and testing by Lovedeep Singh Kamal
+https://github.com/dev-lovedeep
