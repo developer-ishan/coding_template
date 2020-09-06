@@ -9,3 +9,18 @@ This is a command line utility to set a default template for competitive program
     <li>chmod 755 install</li>
     <li>./install</li>
 </ol>
+
+# USAGE
+<pre>
+     Options:-<br>
+        -v, --version : 2.0<br>
+        -h, --help : for detailed help<br>
+        -i [FILENAME] --init [FILENAME] : for creating code template<br>
+        -e, --edit : for editing template<br>
+        -c, --create : for adding new template<br>
+        -a, --all :see list of already added templates<br>
+</pre>
+    CREATED BY ISHAN GUPTA
+    https://github.com/developer-ishan
+    Debugging and testing by Lovedeep Singh Kamal
+    https://github.com/dev-lovedeep
