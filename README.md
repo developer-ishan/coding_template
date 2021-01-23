@@ -24,3 +24,7 @@ This is a command line utility to set a default template for competitive program
     https://github.com/developer-ishan
     Debugging and testing by Lovedeep Singh Kamal
     https://github.com/dev-lovedeep
+### Contibutors
+- [Ishan Gupta](https://github.com/developer-ishan)
+- [Lovedeep Singh Kamal](https://github.com/dev-lovedeep) 
+***
