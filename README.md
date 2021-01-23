@@ -20,10 +20,7 @@ This is a command line utility to set a default template for competitive program
         -c, --create : for adding new template<br>
         -a, --all :see list of already added templates<br>
 </pre>
-    CREATED BY ISHAN GUPTA
-    https://github.com/developer-ishan
-    Debugging and testing by Lovedeep Singh Kamal
-    https://github.com/dev-lovedeep
+
 ### Contibutors
 - [Ishan Gupta](https://github.com/developer-ishan)
 - [Lovedeep Singh Kamal](https://github.com/dev-lovedeep) 
